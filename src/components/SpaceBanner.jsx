@@ -55,6 +55,8 @@ export default function SpaceBanner() {
       <video
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
         src="/videos/exoCafe_video.mp4"
+        poster="/images/space_banner_poster.jpg"
+        preload="auto"
         autoPlay
         loop
         muted

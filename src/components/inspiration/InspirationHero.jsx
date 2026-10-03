@@ -9,7 +9,7 @@ export const INSPIRATION_ITEMS = [
     label: 'CAFÉ',
     subtitle: 'Nguồn Cội & Hạt Cà Phê Mộc',
     videoSrc: '/videos/cafe.mp4',
-    poster: '/images/coffee.png',
+    poster: '/images/inspiration_cafe_poster.jpg',
     tagline: 'Coffee Origin & Tropical Farm',
   },
   {
@@ -18,7 +18,7 @@ export const INSPIRATION_ITEMS = [
     label: 'CAKE',
     subtitle: 'Bánh Ngọt Thủ Công & Trái Cây Tươi',
     videoSrc: '/videos/cake.mp4',
-    poster: '/images/cake1.png',
+    poster: '/images/inspiration_cake_poster.jpg',
     tagline: 'Artisanal Tropical Pastry',
   },
   {
@@ -27,7 +27,7 @@ export const INSPIRATION_ITEMS = [
     label: 'FLOWERS',
     subtitle: 'Hoa Tươi & Sắc Mộc Thiên Nhiên',
     videoSrc: '/videos/flowers.mp4',
-    poster: '/images/leaf.png',
+    poster: '/images/inspiration_flowers_poster.jpg',
     tagline: 'Organic Natural Botanical',
   },
 ]
@@ -81,11 +81,13 @@ export default function InspirationHero({
       className="relative flex h-screen w-full flex-col justify-between overflow-hidden pt-24 pb-8 md:pt-28 md:pb-12"
     >
       {/* MAIN VIDEO LAYER */}
-      <div className="absolute inset-0 z-0 h-full w-full bg-transparent overflow-hidden">
+      <div className="absolute inset-0 z-0 h-full w-full bg-black overflow-hidden">
         <video
           ref={videoRef}
           key={currentVideoItem.id}
           src={currentVideoItem.videoSrc}
+          poster={currentVideoItem.poster}
+          preload="auto"
           autoPlay
           loop
           muted
@@ -139,7 +141,7 @@ export default function InspirationHero({
                       : 'bg-black/40 opacity-70 hover:opacity-100 hover:bg-black/60 backdrop-blur-md'
                   }`}
                 >
-                  {/* Live Motion Video Preview Thumbnail */}
+                  {/* Motion Video Preview Thumbnail Image */}
                   <div
                     style={{
                       borderRadius: '0.75rem',
@@ -147,13 +149,9 @@ export default function InspirationHero({
                     }}
                     className="relative h-11 w-11 flex-shrink-0 overflow-hidden rounded-xl bg-black/40 sm:h-13 sm:w-13"
                   >
-                    <video
-                      src={item.videoSrc}
-                      poster={item.poster}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
+                    <img
+                      src={item.poster}
+                      alt={item.label}
                       className={`pointer-events-none h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 ${
                         isActive
                           ? 'brightness-110'
