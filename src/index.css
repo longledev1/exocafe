@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&family=Oooh+Baby&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", sans-serif;
+  --font-title: "Josefin Sans", sans-serif;
+  --font-text: "Montserrat", sans-serif;
+  --font-hand: "Oooh Baby", cursive;
+
+  --color-brand-title: #495045;
+  --color-brand-accent: #C84928;
+  --color-brand-body: #2D2A26;
+  --color-brand-bg: #FAF8F5;
+  --color-brand-bg-dark: #20241F;
+}
+
+body {
+  background-color: var(--color-brand-bg);
+  color: var(--color-brand-body);
+  font-family: var(--font-text);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-brand-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-title);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-accent);
+}
+
+@utility brand-container {
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  
+  @media (min-width: 768px) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  @media (min-width: 1024px) {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+  @media (min-width: 1280px) {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-tabContent {
+  animation: tabFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes menuCardPopRight {
+  0% {
+    opacity: 0;
+    transform: scale(0.65) translateY(-24px) translateX(24px);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.025) translateY(2px) translateX(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) translateX(0);
+  }
+}
+
+.animate-menuCardPopRight {
+  animation: menuCardPopRight 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top right;
+}
+
+@keyframes giftCardSwap {
+  0% {
+    opacity: 0;
+    transform: scale(0.94) translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-giftCardSwap {
+  animation: giftCardSwap 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 3D Flip Card Utilities */
+.perspective-1000 {
+  perspective: 1400px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+@keyframes modalFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modalFadeIn {
+  animation: modalFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+
+
+
