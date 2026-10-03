@@ -1,8 +1,7 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import SectionTypographyHeader from './SectionTypographyHeader'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -74,7 +73,6 @@ const SPACE_IMAGES = [
 ]
 
 export default function SpaceGallery() {
-  const [selectedImgIndex, setSelectedImgIndex] = useState(null)
   const galleryRef = useRef(null)
 
   // GSAP Entrance Animations
@@ -102,24 +100,6 @@ export default function SpaceGallery() {
     { scope: galleryRef }
   )
 
-  // Lightbox Navigation
-  const handlePrev = (e) => {
-    e.stopPropagation()
-    setSelectedImgIndex((prev) =>
-      prev === 0 ? SPACE_IMAGES.length - 1 : prev - 1
-    )
-  }
-
-  const handleNext = (e) => {
-    e.stopPropagation()
-    setSelectedImgIndex((prev) =>
-      prev === SPACE_IMAGES.length - 1 ? 0 : prev + 1
-    )
-  }
-
-  const activeModalImage =
-    selectedImgIndex !== null ? SPACE_IMAGES[selectedImgIndex] : null
-
   return (
     <section
       ref={galleryRef}
@@ -130,10 +110,7 @@ export default function SpaceGallery() {
         {/* Pair 1 & 2 */}
         <div className="mb-8 grid grid-cols-12 items-center gap-6 md:mb-12 md:gap-8 lg:gap-10">
           {/* Space 1 - Landscape */}
-          <div
-            onClick={() => setSelectedImgIndex(0)}
-            className="gallery-card group relative col-span-12 aspect-[16/10] cursor-pointer overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-7"
-          >
+          <div className="gallery-card group relative col-span-12 aspect-[16/10] overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-7">
             <img
               src={SPACE_IMAGES[0].src}
               alt={SPACE_IMAGES[0].title}
@@ -157,10 +134,7 @@ export default function SpaceGallery() {
           </div>
 
           {/* Space 2 - Portrait */}
-          <div
-            onClick={() => setSelectedImgIndex(1)}
-            className="gallery-card group relative col-span-12 aspect-[3/4] cursor-pointer overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-5"
-          >
+          <div className="gallery-card group relative col-span-12 aspect-[3/4] overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-5">
             <img
               src={SPACE_IMAGES[1].src}
               alt={SPACE_IMAGES[1].title}
@@ -187,10 +161,7 @@ export default function SpaceGallery() {
         {/* Pair 3 & 4 (Inverted: Portrait Left, Landscape Right) */}
         <div className="mb-8 grid grid-cols-12 items-center gap-6 md:mb-12 md:gap-8 lg:gap-10">
           {/* Space 4 - Portrait */}
-          <div
-            onClick={() => setSelectedImgIndex(3)}
-            className="gallery-card group relative col-span-12 aspect-[3/4] cursor-pointer overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-5"
-          >
+          <div className="gallery-card group relative col-span-12 aspect-[3/4] overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-5">
             <img
               src={SPACE_IMAGES[3].src}
               alt={SPACE_IMAGES[3].title}
@@ -214,10 +185,7 @@ export default function SpaceGallery() {
           </div>
 
           {/* Space 3 - Landscape */}
-          <div
-            onClick={() => setSelectedImgIndex(2)}
-            className="gallery-card group relative col-span-12 aspect-[16/10] cursor-pointer overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-7"
-          >
+          <div className="gallery-card group relative col-span-12 aspect-[16/10] overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-7">
             <img
               src={SPACE_IMAGES[2].src}
               alt={SPACE_IMAGES[2].title}
@@ -244,10 +212,7 @@ export default function SpaceGallery() {
         {/* Pair 5 & 6 */}
         <div className="mb-8 grid grid-cols-12 items-center gap-6 md:mb-12 md:gap-8 lg:gap-10">
           {/* Space 5 - Landscape */}
-          <div
-            onClick={() => setSelectedImgIndex(4)}
-            className="gallery-card group relative col-span-12 aspect-[16/10] cursor-pointer overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-7"
-          >
+          <div className="gallery-card group relative col-span-12 aspect-[16/10] overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-7">
             <img
               src={SPACE_IMAGES[4].src}
               alt={SPACE_IMAGES[4].title}
@@ -271,10 +236,7 @@ export default function SpaceGallery() {
           </div>
 
           {/* Space 6 - Portrait */}
-          <div
-            onClick={() => setSelectedImgIndex(5)}
-            className="gallery-card group relative col-span-12 aspect-[3/4] cursor-pointer overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-5"
-          >
+          <div className="gallery-card group relative col-span-12 aspect-[3/4] overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-5">
             <img
               src={SPACE_IMAGES[5].src}
               alt={SPACE_IMAGES[5].title}
@@ -301,10 +263,7 @@ export default function SpaceGallery() {
         {/* Pair 7 & 8 (Inverted: Portrait Left, Landscape Right) */}
         <div className="grid grid-cols-12 items-center gap-6 md:gap-8 lg:gap-10">
           {/* Space 8 - Portrait */}
-          <div
-            onClick={() => setSelectedImgIndex(7)}
-            className="gallery-card group relative col-span-12 aspect-[3/4] cursor-pointer overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-5"
-          >
+          <div className="gallery-card group relative col-span-12 aspect-[3/4] overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-5">
             <img
               src={SPACE_IMAGES[7].src}
               alt={SPACE_IMAGES[7].title}
@@ -328,10 +287,7 @@ export default function SpaceGallery() {
           </div>
 
           {/* Space 7 - Landscape */}
-          <div
-            onClick={() => setSelectedImgIndex(6)}
-            className="gallery-card group relative col-span-12 aspect-[16/10] cursor-pointer overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-7"
-          >
+          <div className="gallery-card group relative col-span-12 aspect-[16/10] overflow-hidden rounded-3xl bg-black/5 shadow-xl lg:col-span-7">
             <img
               src={SPACE_IMAGES[6].src}
               alt={SPACE_IMAGES[6].title}
@@ -355,100 +311,6 @@ export default function SpaceGallery() {
           </div>
         </div>
       </div>
-
-      {/* FULL-SCREEN MINIMALIST LIGHTBOX MODAL */}
-      {activeModalImage && (
-        <div
-          onClick={() => setSelectedImgIndex(null)}
-          className="animate-fadeIn fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-xl transition-all duration-300"
-        >
-          {/* Close Button */}
-          <button
-            onClick={() => setSelectedImgIndex(null)}
-            className="absolute top-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/30"
-            aria-label="Close Lightbox"
-          >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-
-          {/* Prev Arrow */}
-          <button
-            onClick={handlePrev}
-            className="absolute top-1/2 left-4 z-50 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/30 sm:left-8"
-            aria-label="Previous Image"
-          >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2.5"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
-
-          {/* Next Arrow */}
-          <button
-            onClick={handleNext}
-            className="absolute top-1/2 right-4 z-50 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/30 sm:right-8"
-            aria-label="Next Image"
-          >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2.5"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
-
-          {/* Modal Active Image & Info */}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="relative max-h-[85vh] max-w-[90vw] overflow-hidden rounded-2xl bg-black/40 shadow-2xl"
-          >
-            <img
-              src={activeModalImage.src}
-              alt={activeModalImage.title}
-              className="max-h-[75vh] w-auto rounded-2xl object-contain"
-            />
-            <div className="p-6 text-center text-white">
-              <span className="font-title text-brand-accent text-xs tracking-widest uppercase">
-                [{activeModalImage.num} / 08]
-              </span>
-              <h3 className="font-title mt-1 text-2xl font-bold tracking-wider sm:text-3xl">
-                {activeModalImage.title}
-              </h3>
-              <p className="mt-1 font-sans text-sm font-light text-white/80">
-                {activeModalImage.subtitle}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   )
 }

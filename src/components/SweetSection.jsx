@@ -158,7 +158,7 @@ export default function SweetSection() {
       <div className="scene-1-content brand-container absolute inset-0 z-10 flex w-full flex-col items-center justify-center px-6 opacity-0 sm:px-12 md:items-start md:px-16 lg:px-24">
         <div className="flex max-w-2xl flex-col items-center text-center md:ml-4 lg:ml-8 lg:max-w-3xl xl:ml-12">
           {/* Main Title 2 lines */}
-          <h2 className="font-title text-brand-title text-center text-3xl leading-[1.15] font-semibold tracking-wider uppercase sm:text-4xl md:text-5xl lg:text-6xl">
+          <h2 className="font-title text-brand-accent text-center text-3xl leading-[1.15] font-semibold tracking-wider uppercase sm:text-4xl md:text-5xl lg:text-6xl">
             CHẠM VÀO <br /> MIỀN NHIỆT ĐỚI
           </h2>
 
@@ -182,7 +182,7 @@ export default function SweetSection() {
           </div>
 
           {/* Subtitle Description Exactly 2 lines */}
-          <p className="text-brand-accent w-full max-w-2xl text-center font-sans text-xs leading-relaxed font-medium sm:text-sm md:text-base">
+          <p className="text-brand-title w-full max-w-2xl text-center font-sans text-xs leading-relaxed font-medium sm:text-sm md:text-base">
             Một hành trình nơi thiên nhiên, hương vị và những kết nối chân thành{' '}
             <br />
             hòa quyện trong từng trải nghiệm.

@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -61,7 +61,27 @@ export default function ScrollStorytellingSection() {
   const contentHeaderRef = useRef(null)
 
   const contentSectionRef = useRef(null)
-  const cardsGridRef = useRef(null)
+  const scrollContainerRef = useRef(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  const checkScroll = () => {
+    const el = scrollContainerRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 15)
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 15)
+  }
+
+  const scroll = (direction) => {
+    const el = scrollContainerRef.current
+    if (!el) return
+    const cardEl = el.querySelector('.journey-card')
+    const cardWidth = cardEl ? cardEl.clientWidth + 24 : 320
+    el.scrollBy({
+      left: direction === 'left' ? -cardWidth : cardWidth,
+      behavior: 'smooth',
+    })
+  }
 
   // CONTINUOUS SCROLL-DRIVEN TIMELINE (SCRUBBED HERO)
   useGSAP(
@@ -161,19 +181,20 @@ export default function ScrollStorytellingSection() {
         1.8
       )
 
-      // 2. GSAP SCROLLTRIGGER REVEAL FOR 6 VERTICAL SUPPORTING CARDS GRID
-      if (cardsGridRef.current) {
+      // 2. GSAP SCROLLTRIGGER REVEAL FOR HORIZONTAL JOURNEY CARDS
+      const journeyCards = gsap.utils.toArray('.journey-card')
+      if (journeyCards.length > 0) {
         gsap.fromTo(
-          cardsGridRef.current.children,
-          { opacity: 0, y: 45 },
+          journeyCards,
+          { opacity: 0, y: 35 },
           {
             opacity: 1,
             y: 0,
             duration: 0.8,
-            stagger: 0.12,
+            stagger: 0.1,
             ease: 'power3.out',
             scrollTrigger: {
-              trigger: cardsGridRef.current,
+              trigger: contentSectionRef.current,
               start: 'top 85%',
             },
           }
@@ -246,46 +267,104 @@ export default function ScrollStorytellingSection() {
         </div>
       </section>
 
-      {/* 2. CONTINUOUS 6 VERTICAL SUPPORTING CARDS GRID SECTION (S1 -> S6) BELOW */}
+      {/* 2. MINIMAL FILMSTRIP HORIZONTAL PHOTO REEL (CONCEPT 1) */}
       <section
         ref={contentSectionRef}
-        className="text-brand-body relative w-full bg-[#FAF8F5] pt-16 pb-32"
+        className="text-brand-body relative w-full bg-[#FAF8F5] pt-16 pb-28 md:pt-20 md:pb-36"
       >
-        <div className="brand-container mx-auto max-w-7xl px-6 md:px-12">
-          {/* Section Divider */}
-          <div className="bg-brand-accent/40 mx-auto mb-16 h-0.5 w-20" />
+        <div className="brand-container mx-auto max-w-[1700px] px-6 sm:px-10 lg:px-16">
+          {/* Minimal Section Divider */}
+          <div className="bg-brand-accent/30 mx-auto mb-12 h-0.5 w-16" />
 
-          {/* 6 Supporting Vertical Image Cards Grid (3 Columns Desktop, 2 Tablet, 1 Mobile) */}
+          {/* Minimal Editorial Header */}
+          <div className="mb-8 flex items-end justify-between gap-4">
+            <div>
+              <span className="font-title text-brand-accent text-xs font-bold tracking-[0.25em] uppercase">
+                Hành Trình Hạt Mộc
+              </span>
+              <h2 className="font-title text-brand-title mt-2 text-2xl font-bold tracking-wider uppercase sm:text-3xl md:text-4xl">
+                Sự Chuyển Hóa Của Hương Vị
+              </h2>
+            </div>
+
+            {/* Minimalist Prev/Next Arrow Buttons */}
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => scroll('left')}
+                disabled={!canScrollLeft}
+                className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border transition-all duration-300 ${
+                  canScrollLeft
+                    ? 'border-black/20 bg-white text-brand-title hover:bg-brand-title hover:text-white shadow-xs active:scale-95'
+                    : 'border-black/10 bg-transparent text-black/20 cursor-not-allowed opacity-40'
+                }`}
+                aria-label="Xem bước trước"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={() => scroll('right')}
+                disabled={!canScrollRight}
+                className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border transition-all duration-300 ${
+                  canScrollRight
+                    ? 'border-black/20 bg-white text-brand-title hover:bg-brand-title hover:text-white shadow-xs active:scale-95'
+                    : 'border-black/10 bg-transparent text-black/20 cursor-not-allowed opacity-40'
+                }`}
+                aria-label="Xem bước tiếp theo"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Minimal Filmstrip Gallery Track (Pure Photography + 1-Line Caption) */}
           <div
-            ref={cardsGridRef}
-            className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 md:gap-10 lg:gap-12"
+            ref={scrollContainerRef}
+            onScroll={checkScroll}
+            className="flex gap-5 sm:gap-7 md:gap-8 overflow-x-auto pt-2 pb-6 scroll-smooth scrollbar-none snap-x snap-mandatory"
+            style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            }}
           >
             {SUPPORTING_CARDS.map((card) => (
               <div
                 key={card.id}
-                className="group relative flex flex-col overflow-hidden rounded-3xl border border-black/5 bg-white/70 p-4 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:bg-white hover:shadow-xl"
+                className="journey-card group relative flex w-[230px] sm:w-[270px] md:w-[310px] lg:w-[330px] flex-shrink-0 flex-col snap-start select-none"
               >
-                {/* Vertical Portrait Image Container (aspect-[3/4]) */}
-                <div className="relative mb-5 aspect-[3/4] w-full overflow-hidden rounded-2xl bg-black/10">
+                {/* Clean Aspect-3/4 Photo Frame */}
+                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-black/5">
                   <img
                     src={card.src}
                     alt={card.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-black/10 transition-opacity duration-500 group-hover:opacity-0" />
+                  {/* Subtle top-left watermark number */}
+                  <span className="font-title absolute top-3.5 left-3.5 text-xs font-bold tracking-widest text-white/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                    {card.num}
+                  </span>
                 </div>
 
-                {/* Caption Content */}
-                <div className="flex flex-col px-2 pb-2">
-                  <div className="mb-2 flex items-center justify-between">
-                    <span className="font-title text-brand-accent text-xs font-bold tracking-widest uppercase">
+                {/* Minimalist Caption Below (Number + Stage Title + Small Description) */}
+                <div className="mt-3.5 flex flex-col px-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-title text-brand-accent text-xs font-bold tracking-wider">
                       {card.num}
                     </span>
-                    <h3 className="font-title text-brand-title text-base font-bold tracking-wider uppercase sm:text-lg">
+                    <span className="h-2.5 w-[1px] bg-black/20" />
+                    <span className="font-title text-brand-title text-xs font-semibold tracking-[0.16em] uppercase transition-colors group-hover:text-brand-accent">
                       {card.title}
-                    </h3>
+                    </span>
                   </div>
-                  <p className="text-brand-body/80 font-sans text-xs leading-relaxed font-medium sm:text-sm">
+
+                  {/* Small Description */}
+                  <p className="text-brand-body/85 font-sans mt-1.5 text-xs sm:text-[13px] leading-relaxed font-medium">
                     {card.desc}
                   </p>
                 </div>

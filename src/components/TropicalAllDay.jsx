@@ -45,7 +45,7 @@ const menuItems = [
 
 const MenuItemCard = ({ item }) => {
   return (
-    <div className="group bg-brand-bg-dark relative aspect-[3/4.2] w-full cursor-pointer overflow-hidden rounded-3xl border border-white/5 shadow-lg sm:aspect-[3/4.5]">
+    <div className="group relative aspect-[3/4.2] w-full cursor-pointer overflow-hidden rounded-3xl sm:aspect-[3/4.5]">
       {/* Background Image */}
       <img
         src={item.image}
