@@ -219,7 +219,7 @@ export const FOOD_MENU_CATEGORIES = [
     title: 'KEM GELATO',
     subtitle:
       'Những món kem thủ công tươi mát ngọt ngào xua tan đi cái nóng miền nhiệt đới.',
-    spotlightImg: '/images/ice_cream.png',
+    spotlightImg: '/images/menu_food/Pineapple_Coconut.png',
     products: GELATO_MENU,
   },
   {
@@ -227,7 +227,7 @@ export const FOOD_MENU_CATEGORIES = [
     title: 'TRÀ TRÁI CÂY NHIỆT ĐỚI',
     subtitle:
       'Sự hòa quyện tuyệt vời giữa vị trà thanh mát và trái cây tươi chọn lọc mọng nước.',
-    spotlightImg: '/images/tea.png',
+    spotlightImg: '/images/menu_food/tra_duaduatac.png',
     products: FRUIT_TEA_MENU,
   },
   {
@@ -235,7 +235,7 @@ export const FOOD_MENU_CATEGORIES = [
     title: 'CÀ PHÊ VIỆT NAM',
     subtitle:
       'Hương vị đậm đà truyền thống kết hợp cùng hạt cà phê Arabica & Robusta rang xay nguyên chất.',
-    spotlightImg: '/images/coffee.png',
+    spotlightImg: '/images/cafe.png',
     products: VIETNAMESE_COFFEE_MENU,
   },
   {
@@ -243,7 +243,7 @@ export const FOOD_MENU_CATEGORIES = [
     title: 'BÁNH NGỌT (BÁNH LẠNH)',
     subtitle:
       'Các món bánh mousse, cheesecake và panna cotta mềm mịn, béo dịu chuẩn phong vị nhiệt đới.',
-    spotlightImg: '/images/cake1.png',
+    spotlightImg: '/images/menu_food/mousse_daocam.png',
     products: COLD_CAKES_MENU,
   },
   {

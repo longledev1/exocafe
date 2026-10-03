@@ -27,7 +27,7 @@ const SLOTS = SLOT_ANGLES_DEG.map((deg, i) => {
   return {
     pctX: ((CX + R * Math.cos(rad)) / VB_W) * 100,
     pctY: ((CY + R * Math.sin(rad)) / VB_H) * 100,
-    scale: [0.75, 1.05, 1.55, 1.05, 0.75][i],
+    scale: [0.65, 0.85, 1.18, 0.85, 0.65][i],
     opacity: [0.65, 0.85, 1.0, 0.85, 0.65][i],
     zIndex: [10, 25, 50, 25, 10][i],
   }
@@ -279,21 +279,21 @@ export default function EllipticalMenu() {
                   {isActive && (
                     <>
                       {/* Deep Radiant Glow Shadow */}
-                      <div className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-48 w-48 -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-full bg-white/50 blur-3xl sm:h-56 sm:w-56 md:h-64 md:w-64" />
+                      <div className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-32 w-32 -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-full bg-white/40 blur-2xl sm:h-40 sm:w-40 md:h-48 md:w-48" />
                       {/* Ground Contact Shadow */}
-                      <div className="pointer-events-none absolute bottom-6 left-1/2 -z-10 h-6 w-36 -translate-x-1/2 rounded-full bg-black/40 blur-md" />
+                      <div className="pointer-events-none absolute bottom-3 left-1/2 -z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-black/30 blur-md" />
                     </>
                   )}
                   <div className="relative flex cursor-pointer flex-col items-center justify-center">
                     {/* Item Image */}
-                    <div className="flex h-36 w-32 cursor-pointer items-center justify-center sm:h-44 sm:w-40 md:h-52 md:w-46 lg:h-56 lg:w-50">
+                    <div className="flex h-28 w-28 cursor-pointer items-center justify-center sm:h-36 sm:w-36 md:h-40 md:w-40 lg:h-44 lg:w-44">
                       <img
                         src={cat.spotlightImg}
                         alt={cat.title}
                         className={`h-full w-full cursor-pointer object-contain transition-all duration-500 ${
                           isActive
-                            ? 'scale-110 brightness-110 contrast-105 drop-shadow-[0_0_30px_rgba(255,255,255,0.9)] drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)]'
-                            : 'brightness-[0.65] drop-shadow-[0_5px_12px_rgba(0,0,0,0.25)] group-hover:scale-105 group-hover:brightness-90'
+                            ? 'scale-105 brightness-110 contrast-105 drop-shadow-[0_0_22px_rgba(255,255,255,0.75)] drop-shadow-[0_12px_24px_rgba(0,0,0,0.45)]'
+                            : 'brightness-[0.65] drop-shadow-[0_4px_10px_rgba(0,0,0,0.2)] group-hover:scale-105 group-hover:brightness-90'
                         }`}
                       />
                     </div>
