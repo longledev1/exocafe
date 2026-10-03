@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { X, Sparkles, ArrowRight, ShieldCheck } from 'lucide-react'
+import { X, Sparkles, ArrowRight } from 'lucide-react'
+
+// Cờ ghi nhớ trong phiên tải trang: Reset khi người dùng F5 hoặc vào lại web,
+// nhưng GIỮ NGUYÊN khi chuyển qua lại giữa các Route (Home, Inspiration, Store...)
+let hasShownInCurrentVisit = false
 
 export default function MemberWelcomeModal() {
   const [isOpen, setIsOpen] = useState(false)
@@ -9,25 +13,44 @@ export default function MemberWelcomeModal() {
   const location = useLocation()
 
   useEffect(() => {
-    // 1. Kiểm tra nếu đã hiện trong phiên này thì không bao giờ hiện lại nữa
-    const hasShown = sessionStorage.getItem('exocafe_member_modal_seen')
-    if (hasShown) return
+    // 1. Nếu đã từng hiện trong lượt vào web này thì không bao giờ hiện lại nữa khi đổi route
+    if (hasShownInCurrentVisit) return
 
-    // 2. Không hiện nếu vào thẳng trang đăng ký thành viên
+    // 2. Không hiện nếu người dùng vào thẳng trang đăng ký thành viên
     if (location.pathname === '/membership' || location.pathname === '/thanh-vien') {
       return
     }
 
-    // 3. Đợi tầm 2.5s sau khi vào web rồi mới hiện
-    const timer = setTimeout(() => {
-      sessionStorage.setItem('exocafe_member_modal_seen', 'true')
+    const showModal = () => {
+      if (hasShownInCurrentVisit) return
+      hasShownInCurrentVisit = true
       setIsOpen(true)
-    }, 2500)
+    }
 
-    return () => clearTimeout(timer)
-  }, [])
+    // 3. Kiểm tra xem Splash Screen có đang chạy không
+    const isSplashActive = !sessionStorage.getItem('exocafe_splash_seen')
+
+    let timer
+    if (isSplashActive) {
+      // Đợi Splash Screen chạy xong (hoặc người dùng bấm Bỏ qua) rồi mới đếm giờ hiện modal
+      const handleSplashDone = () => {
+        timer = setTimeout(showModal, 1500)
+      }
+      window.addEventListener('exocafe_splash_finished', handleSplashDone, { once: true })
+
+      return () => {
+        window.removeEventListener('exocafe_splash_finished', handleSplashDone)
+        if (timer) clearTimeout(timer)
+      }
+    } else {
+      // Nếu Splash Screen đã xem trước đó, đếm 2.5s rồi hiện nhẹ nhàng
+      timer = setTimeout(showModal, 2500)
+      return () => clearTimeout(timer)
+    }
+  }, [location.pathname])
 
   const handleClose = () => {
+    hasShownInCurrentVisit = true
     setIsClosing(true)
     setTimeout(() => {
       setIsOpen(false)
@@ -36,13 +59,14 @@ export default function MemberWelcomeModal() {
   }
 
   const handleNavigate = () => {
+    hasShownInCurrentVisit = true
     handleClose()
     setTimeout(() => {
       navigate('/membership')
     }, 150)
   }
 
-  // Keyboard accessibility
+  // Phím Escape để đóng modal
   useEffect(() => {
     if (!isOpen) return
     const handleKeyDown = (e) => {
@@ -59,7 +83,7 @@ export default function MemberWelcomeModal() {
       role="dialog"
       aria-modal="true"
       aria-label="Đăng ký thành viên ExoCafé"
-      className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 transition-all duration-300 ${
+      className={`fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6 transition-all duration-300 ${
         isClosing ? 'opacity-0' : 'opacity-100'
       }`}
     >
@@ -72,7 +96,7 @@ export default function MemberWelcomeModal() {
 
       {/* Modal Dialog Card */}
       <div
-        className={`relative z-10 w-full max-w-[420px] sm:max-w-[450px] overflow-hidden rounded-[28px] sm:rounded-[32px] bg-[#FAF8F5] border border-black/8 shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-300 ${
+        className={`relative z-10 w-full max-w-[420px] sm:max-w-[450px] overflow-hidden rounded-[28px] sm:rounded-[32px] bg-[#FAF8F5] border border-black/8 shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-300 ${
           isClosing ? 'scale-90 opacity-0 -translate-y-3' : 'scale-100 opacity-100 translate-y-0'
         }`}
       >

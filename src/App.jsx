@@ -20,6 +20,7 @@ function App() {
   const handleSplashComplete = () => {
     setShowSplash(false)
     sessionStorage.setItem('exocafe_splash_seen', 'true')
+    window.dispatchEvent(new CustomEvent('exocafe_splash_finished'))
   }
 
   return (
