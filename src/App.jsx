@@ -9,12 +9,22 @@ import Membership from './pages/Membership'
 import SplashScreen from './components/SplashScreen'
 
 function App() {
-  // Tạm thời tắt intro splash screen theo yêu cầu
-  const [showSplash, setShowSplash] = useState(false)
+  // Chỉ hiển thị SplashScreen 1 lần duy nhất trong phiên truy cập
+  const [showSplash, setShowSplash] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return !sessionStorage.getItem('exocafe_splash_seen')
+    }
+    return false
+  })
+
+  const handleSplashComplete = () => {
+    setShowSplash(false)
+    sessionStorage.setItem('exocafe_splash_seen', 'true')
+  }
 
   return (
     <>
-      {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
       <BrowserRouter>
         <ScrollToTop />
         <Routes>

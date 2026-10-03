@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-// import MemberWelcomeModal from '../components/MemberWelcomeModal'
+import MemberWelcomeModal from '../components/MemberWelcomeModal'
 
 export default function MainLayout() {
   return (
@@ -18,7 +18,7 @@ export default function MainLayout() {
       <Footer />
 
       {/* 4. Welcome Membership Promo Modal */}
-      {/* <MemberWelcomeModal /> */}
+      <MemberWelcomeModal />
     </div>
   )
 }

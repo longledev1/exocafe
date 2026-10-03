@@ -9,18 +9,23 @@ export default function MemberWelcomeModal() {
   const location = useLocation()
 
   useEffect(() => {
-    // Do not show on membership registration page itself
+    // 1. Kiểm tra nếu đã hiện trong phiên này thì không bao giờ hiện lại nữa
+    const hasShown = sessionStorage.getItem('exocafe_member_modal_seen')
+    if (hasShown) return
+
+    // 2. Không hiện nếu vào thẳng trang đăng ký thành viên
     if (location.pathname === '/membership' || location.pathname === '/thanh-vien') {
       return
     }
 
-    // Small delay for smooth intro after page loads
+    // 3. Đợi tầm 2.5s sau khi vào web rồi mới hiện
     const timer = setTimeout(() => {
+      sessionStorage.setItem('exocafe_member_modal_seen', 'true')
       setIsOpen(true)
-    }, 600)
+    }, 2500)
 
     return () => clearTimeout(timer)
-  }, [location.pathname])
+  }, [])
 
   const handleClose = () => {
     setIsClosing(true)

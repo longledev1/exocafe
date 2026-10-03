@@ -187,6 +187,14 @@ export default function SplashScreen({ onComplete }) {
       ref={containerRef}
       className="bg-brand-bg fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden select-none"
     >
+      {/* Skip Button */}
+      <button
+        onClick={() => onComplete()}
+        className="absolute top-6 right-6 z-40 cursor-pointer rounded-full border border-black/10 bg-white/70 px-4 py-1.5 font-sans text-xs font-semibold text-brand-title/75 backdrop-blur-md transition-all hover:bg-white hover:text-brand-title active:scale-95 shadow-xs"
+      >
+        Bỏ qua
+      </button>
+
       {/* 1. Ambient Morning Light Source (Parallax background element) */}
       <div className="splash-light pointer-events-none absolute -top-40 -left-40 h-[700px] w-[700px] rounded-full bg-[radial-gradient(circle,rgba(241,241,229,0.5)_0%,rgba(250,248,245,0)_70%)] blur-3xl"></div>
 
